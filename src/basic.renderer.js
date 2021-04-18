@@ -1,6 +1,6 @@
 /* ------------------------------
   UFRJ 2020.2 - COMPUTAÇÃO GRÁFICA
-  PROFESSOR: JOÃO VITOR OLIVEIRA
+  PROFESSOR: JOÃO VITOR DE OLIVEIRA
   ALUNOS: NICKOLAS GOMES PINTO (114148170) e BRUNO HRYNIEWICZ (115150099)
   ------------------------------ */
 
