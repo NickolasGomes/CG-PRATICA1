@@ -280,40 +280,106 @@
                             var raio = primitive.radius; // Recupera raio do circulo
                             var P0 = primitive.center; // Monta matriz P0 com as coordenadas do centro do circulo
                             P0.push(raio) // Inclui o raio na matriz que define o circulo
+
+
+                            /**------------------- ESSE PEDAÇO FOI UMA TENTATIVA ANTIGA DE APLICAR A TRANSFORMACAO NO CIRCULO, NAO FUNCIONOU MUITO BEM ------**/
                             //console.log("P0: ", P0) // exibe matriz do circulo para controle, nesse momento uma matriz linha
-                            var VertorCirculo = []; // cria matriz auxiliar para definir o circulo como matriz coluna
-                            VertorCirculo.push(P0); // adiciona matriz do circulo no vetor
-                            VertorCirculo = VertorCirculo[0].map((_, colIndex) => VertorCirculo.map(row => row[colIndex])); // transforma a matriz do circulo em matriz coluna
+                            //var VertorCirculo = []; // cria matriz auxiliar para definir o circulo como matriz coluna
+                            //VertorCirculo.push(P0); // adiciona matriz do circulo no vetor
+                            //VertorCirculo = VertorCirculo[0].map((_, colIndex) => VertorCirculo.map(row => row[colIndex])); // transforma a matriz do circulo em matriz coluna
                             //console.log("VertorCirculo: ", VertorCirculo); //exibe matriz para controle
 
+                            // var raio = primitive.radius; // Recupera raio do circulo
+                            // var P0 = primitive.center; // Monta matriz P0 com as coordenadas do centro do circulo
+                            // P0.push(raio) // Inclui o raio na matriz que define o circulo
+                            // //console.log("P0: ", P0) // exibe matriz do circulo para controle, nesse momento uma matriz linha
+                            // var VertorCirculo = []; // cria matriz auxiliar para definir o circulo como matriz coluna
+                            // VertorCirculo.push(P0); // adiciona matriz do circulo no vetor
+                            // VertorCirculo = VertorCirculo[0].map((_, colIndex) => VertorCirculo.map(row => row[colIndex])); // transforma a matriz do circulo em matriz coluna
+                            // //console.log("VertorCirculo: ", VertorCirculo); //exibe matriz para controle
+                            //
+                            // var mA = primitive.xform    // Recupera matriz de transformacao
+                            // var mB = VertorCirculo // Recupera matriz coluna do circulo
+                            // var result = new Array( mB.length ); // cria array para salvar as propriedades do circulo transformado
+                            //
+                            //
+                            // var i = 0;
+                            // var j = 0;
+                            // // Vou aplicar a transfomrcao sobre a matriz coluna que define o circulo,logo, precisamos de i = 0 e vou iterando em j, fazendo linhas da transformacao X a coluna circulo
+                            // while (  j < mA.length  ) {
+                            //     for ( var k = 0; k < mB.length ; k++ ) {
+                            //
+                            //         result[ j ] = 0;
+                            //         result[ j ] += mA[ j ][ k ] * mB[ k ][ i ];
+                            //         j++;
+                            //
+                            //     }
+                            // }
+                            /**------------------- ESSE PEDAÇO FOI UMA TENTATIVA ANTIGA DE APLICAR A TRANSFORMACAO NO CIRCULO, NAO FUNCIONOU MUITO BEM ------**/
+
                             var mA = primitive.xform    // Recupera matriz de transformacao
-                            var mB = VertorCirculo // Recupera matriz coluna do circulo
+                            var mB = P0 // Recupera matriz coluna do circulo
                             var result = new Array( mB.length ); // cria array para salvar as propriedades do circulo transformado
 
-    
-                            var i = 0;
-                            var j = 0;
-                            // Vou aplicar a transfomrcao sobre a matriz coluna que define o circulo,logo, precisamos de i = 0 e vou iterando em j, fazendo linhas da transformacao X a coluna circulo
-                            while (  j < mA.length  ) {
-                                for ( var k = 0; k < mB.length ; k++ ) {
-                                    
-                                    result[ j ] = 0;
-                                    result[ j ] += mA[ j ][ k ] * mB[ k ][ i ];
-                                    j++;
-                                    
+                            for ( var i = 0; i < result.length; i++ ) {
+
+                                //console.log("mB[i]length: " , mB[i].length);
+                                result[i] = new Array( mB[i].length );
+                                console.log("mAlength: " , mA.length);
+                                for ( var j = 0; j <mB.length - 2; j++ ) {
+                                    //console.log("result[ i ][ j ]: " , result[ i ][ j ]);
+                                    result[ i ][ j] = 0;
+                                    //console.log("TrianguloColunalength: " , mB.length);
+                                    for ( var k = 0; k < mB.length ; k++ ) {
+                                        //console.log("mA[ i ][ k ]: " , mA[ i ][ k ]);
+                                        //console.log("vColuna: " , TrianguloColuna[i][0]);
+                                        //console.log("vColuna2: " , mB[k]);
+                                        result[ i ][ j ] += mA[ i ][ k ] * mB[k];
+                                    }
                                 }
                             }
 
+
+                            // var mA = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
+                            // var mB = [100, 100];
+                            // var raio = 80.
+                            // mB.push(raio)
+                            //
+                            //
+                            //
+                            //
+                            //
+                            // var result = new Array( mB.length );
+                            // for ( var i = 0; i < result.length; i++ ) {
+                            //     console.log("mB[i]length: " , mB[i].length);
+                            //     result[i] = new Array( mB[i].length );
+                            //     console.log("mAlength: " , mA.length);
+                            //     for ( var j = 0; j <mB.length - 2; j++ ) {
+                            //         console.log("result[ i ][ j ]: " , result[ i ][ j ]);
+                            //         result[ i ][ j] = 0;
+                            //         console.log("TrianguloColunalength: " , mB.length);
+                            //         for ( var k = 0; k < mB.length ; k++ ) {
+                            //             console.log("mA[ i ][ k ]: " , mA[ i ][ k ]);
+                            //             //console.log("vColuna: " , TrianguloColuna[i][0]);
+                            //             console.log("vColuna2: " , mB[k]);
+                            //             result[ i ][ j ] += mA[ i ][ k ] * mB[k];
+                            //         }
+                            //     }
+                            // }
+                            // console.log("result: " , result);
+
                             var CirculoTransform = result; // Salva Circulo transformado
                             //console.log("Result: ", CirculoTransform) // exibe matriz para controle
-                            var centroX = CirculoTransform[0]; // Salva novo centro do eixo X
+                            var centroX = CirculoTransform[0][0]; // Salva novo centro do eixo X
                             //console.log("CentroX: ", centroX)
-                            var centroY = CirculoTransform[1]; // Salva novo centro do eixo Y
+                            var centroY = CirculoTransform[1][0]; // Salva novo centro do eixo Y
                             //console.log("CentroX: ", centroY)
                             var P0Transform = [centroX ,centroY]; // Salva vetor x0', y0' (transformado)
                             var Vertices = []; // Cria auxilixar para vertices
                             Vertices.push(P0Transform); // Salvar centro x0' e y0' em vertices
-                            var raioTransform = CirculoTransform[2]; // Salva raio transformado
+                            var raioTransform = CirculoTransform[2][0]; // Salva raio transformado
+                            console.log("raioTransform: " , CirculoTransform[2][0]);
+                            console.log("Vertices: " , Vertices);
                             console.log("VerticesCirculo: " , Vertices[0]);
                              
 
